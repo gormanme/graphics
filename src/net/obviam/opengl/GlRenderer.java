@@ -52,6 +52,8 @@ public class GlRenderer implements Renderer {
 		float card_w = 154.6f;
 		float card_h = 369;
 		float between_rows = 35.5f;
+		float left_pad = 22.0f;
+		float top_pad = 395.0f;
 
 
 		float ace_left = 22.0f + card_w * 0;
@@ -79,6 +81,7 @@ public class GlRenderer implements Renderer {
 			ace_right, ace_top,	// top right	(V4)
 			ace_right, ace_bottom		// bottom right	(V3)
 		};
+		
 		float card2_tex[] = {
 						// Mapping coordinates for the vertices
 			176.0f, 395.0f,		// top left		(V2)

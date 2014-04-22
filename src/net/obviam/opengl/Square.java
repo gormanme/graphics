@@ -14,11 +14,31 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.opengl.GLUtils;
 
+//Rows x Columns
+//Set 0 to be Joker for debug
+
 /**
  * @author impaler
  *
  */
 public class Square {
+
+	int[][] cards = {
+	{12,4},
+	{0,0},
+	{12, 0},
+	{11,0},
+	{10,0},
+	{9,0},
+	{8,0},
+	{7,0},
+	{6,0},
+	{5,0},
+	{4,0},
+	{3,0},
+	{2,0},
+	{1,0}
+};
 	
 	private FloatBuffer vertexBuffer;	// buffer holding the vertices
 	private float vertices[] = {
