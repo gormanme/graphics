@@ -20,6 +20,21 @@ public class GlRenderer implements Renderer {
 	private Square    	card1;
 	private Square 		card2;
 	private Context 	context;
+
+	//Row x Column
+	int[][] cards = {
+		//0 is Joker for debug:
+		{12,4},
+		//Triforce
+		{0,0},{12, 0},{11,0},{10,0},{9,0},{8,0},{7,0},{6,0},{5,0},{4,0},{3,0},{2,0},{1,0},
+		//Arrows
+		{0,1},{12, 1},{11,1},{10,1},{9,1},{8,1},{7,1},{6,1},{5,1},{4,1},{3,1},{2,1},{1,1},
+		//Rupees
+		{0,2},{12, 2},{11,2},{10,2},{9,2},{8,2},{7,2},{6,2},{5,2},{4,2},{3,2},{2,2},{1,2},
+		//Hearts
+		{0,3},{12, 3},{11,3},{10,3},{9,3},{8,3},{7,3},{6,3},{5,3},{4,3},{3,3},{2,3},{1,3},
+	};
+
 	
 	/** Constructor to set the handed over context */
 	public GlRenderer(Context context) {
@@ -49,38 +64,38 @@ public class GlRenderer implements Renderer {
 		};
 
 		//Texture coordinates are in "pixel" space at this point
-		float card_w = 154.6f;
-		float card_h = 369;
-		float between_rows = 35.5f;
-		float left_pad = 22.0f;
-		float top_pad = 395.0f;
+		// float card_w = 154.6f;
+		// float card_h = 369;
+		// float between_rows = 35.5f;
+		// float left_pad = 22.0f;
+		// float top_pad = 395.0f;
 
 
-		float ace_left = 22.0f + card_w * 0;
-		float ace_right = ace_left + card_w;
-		float ace_top = 395 + (card_h + between_rows) * 3;
-		float ace_bottom = ace_top - card_h;
+		// float ace_left = 22.0f + card_w * 0;
+		// float ace_right = ace_left + card_w;
+		// float ace_top = 395 + (card_h + between_rows) * 3;
+		// float ace_bottom = ace_top - card_h;
 
-		float heart_left = 22.0f + card_w * 12;
-		float heart_right = heart_left + card_w;
-		float heart_top = 395 + (card_h + between_rows) * 2;
-		float heart_bottom = heart_top - card_h;
+		// float heart_left = 22.0f + card_w * 12;
+		// float heart_right = heart_left + card_w;
+		// float heart_top = 395 + (card_h + between_rows) * 2;
+		// float heart_bottom = heart_top - card_h;
 
-		float two_rupees[] = {
-							// Mapping coordinates for the vertices
-			heart_left, heart_top,		// top left		(V2)
-			heart_left, heart_bottom,		// bottom left	(V1)
-			heart_right, heart_top,	// top right	(V4)
-			heart_right, heart_bottom		// bottom right	(V3)
-		};
+		// float two_rupees[] = {
+		// 					// Mapping coordinates for the vertices
+		// 	heart_left, heart_top,		// top left		(V2)
+		// 	heart_left, heart_bottom,		// bottom left	(V1)
+		// 	heart_right, heart_top,	// top right	(V4)
+		// 	heart_right, heart_bottom		// bottom right	(V3)
+		// };
 
-		float ace_hearts[] = {
-							// Mapping coordinates for the vertices
-			ace_left, ace_top,		// top left		(V2)
-			ace_left, ace_bottom,		// bottom left	(V1)
-			ace_right, ace_top,	// top right	(V4)
-			ace_right, ace_bottom		// bottom right	(V3)
-		};
+		// float ace_hearts[] = {
+		// 					// Mapping coordinates for the vertices
+		// 	ace_left, ace_top,		// top left		(V2)
+		// 	ace_left, ace_bottom,		// bottom left	(V1)
+		// 	ace_right, ace_top,	// top right	(V4)
+		// 	ace_right, ace_bottom		// bottom right	(V3)
+		// };
 		
 		float card2_tex[] = {
 						// Mapping coordinates for the vertices
@@ -90,21 +105,6 @@ public class GlRenderer implements Renderer {
 			330.0f, 30.0f		// bottom right	(V3)
 		};
 
-//		float card1_tex[] = {
-//						// Mapping coordinates for the vertices
-//			22.0f, 395.0f,		// top left		(V2)
-//			22.0f, 30.0f,		// bottom left	(V1)
-//			175.0f, 395.0f,	// top right	(V4)
-//			175.0f, 30.0f		// bottom right	(V3)
-//		};
-
-		float card1_tex[] = {
-						// Mapping coordinates for the vertices
-			22.0f, 796.0f,		// top left		(V2)
-			22.0f, 430.0f,		// bottom left	(V1)
-			175.0f, 796.0f,	// top right	(V4)
-			175.0f, 430.0f		// bottom right	(V3)
-		};
 
 		float felt_tex[] = {
 						// Mapping coordinates for the vertices
@@ -114,13 +114,41 @@ public class GlRenderer implements Renderer {
 			1.0f, 0.0f		// bottom right	(V3)
 		};
 
-		card1_tex = pixToTex(card1_tex);
-		card2_tex = pixToTex(card2_tex);
-		two_rupees = pixToTex(two_rupees);
-		ace_hearts = pixToTex(ace_hearts);
+//		card2_tex = pixToTex(card2_tex);
+//		two_rupees = pixToTex(two_rupees);
+//		ace_hearts = pixToTex(ace_hearts);
 		felt = new Square(felt_verts, felt_tex);
-		card1 = new Square(card1_verts, ace_hearts);
-		card2 = new Square(card2_verts, two_rupees);
+
+		float[] first_card = get_texture(0);
+		float[] sec_card = get_texture(15);
+
+		card1 = new Square(card1_verts, first_card);
+		card2 = new Square(card2_verts, sec_card);
+	}
+
+
+	public float[] get_texture(int card){
+		float card_w = 154.6f;
+		float card_h = 369;
+		float between_rows = 35.5f;
+		float left_pad = 22.0f;
+		float top_pad = 395.0f;
+
+
+		float left = left_pad + card_w * cards[card][0];
+		float right = left + card_w;
+		float top = top_pad + (card_h + between_rows) * cards[card][1];
+		float bottom = top - card_h;
+		
+		float card_texture[] = {    		
+			// Mapping coordinates for the vertices
+			left, top,		// top left		(V2)
+			left, bottom,		// bottom left	(V1)
+			right, top,		// top right	(V4)
+			right, bottom		// bottom right	(V3)
+		};
+		card_texture = pixToTex(card_texture);
+		return card_texture;
 	}
 
 
