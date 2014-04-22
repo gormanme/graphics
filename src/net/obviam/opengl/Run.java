@@ -5,11 +5,18 @@ import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.util.Log;
+import android.widget.Button;
+import android.widget.SeekBar.*;
+import android.widget.SeekBar;
 
-public class Run extends Activity {
+
+public class Run extends Activity  implements OnSeekBarChangeListener{
 	
 	/** The OpenGL view */
-	private GLSurfaceView glSurfaceView;
+	private UhmazingSurfaceView glSurfaceView;
 	
     /** Called when the activity is first created. */
     @Override
@@ -24,12 +31,54 @@ public class Run extends Activity {
 
         // Initiate the Open GL view and
         // create an instance with this activity
-        glSurfaceView = new GLSurfaceView(this);
+       // glSurfaceView = new UhmazingSurfaceView(this);
         
         // set our renderer to be the main renderer with
         // the current activity context
+     //   setContentView(glSurfaceView);
+
+        setContentView(R.layout.main);
+
+        glSurfaceView = (UhmazingSurfaceView)findViewById(R.id.gl_surface_view);
         glSurfaceView.setRenderer(new GlRenderer(this));
-        setContentView(glSurfaceView);
+
+        if(glSurfaceView == null)
+        	Log.e("Meghan", "glSurfaceView is null!!!");
+
+        SeekBar seekbar = (SeekBar)findViewById(R.id.bet_seekbar); // make seekbar object
+        seekbar.setOnSeekBarChangeListener(this); 
+        seekbar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress,
+                    boolean fromUser) {
+                // TODO Auto-generated method stub
+                Button button = (Button)findViewById(R.id.button_bet);
+                button.setText("Bet: $"+progress);
+
+            }
+        });
+
+    }
+
+    public void update_bet(View view){
+
+    }
+
+    public void fold(View view){
+    	((Button)findViewById(R.id.button_bet)).setEnabled(false);
     }
 
 	/**

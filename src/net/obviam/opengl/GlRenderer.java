@@ -63,49 +63,6 @@ public class GlRenderer implements Renderer {
 			 1.15f,  1.0f,  0.0f			// V4 - top right
 		};
 
-		//Texture coordinates are in "pixel" space at this point
-		// float card_w = 154.6f;
-		// float card_h = 369;
-		// float between_rows = 35.5f;
-		// float left_pad = 22.0f;
-		// float top_pad = 395.0f;
-
-
-		// float ace_left = 22.0f + card_w * 0;
-		// float ace_right = ace_left + card_w;
-		// float ace_top = 395 + (card_h + between_rows) * 3;
-		// float ace_bottom = ace_top - card_h;
-
-		// float heart_left = 22.0f + card_w * 12;
-		// float heart_right = heart_left + card_w;
-		// float heart_top = 395 + (card_h + between_rows) * 2;
-		// float heart_bottom = heart_top - card_h;
-
-		// float two_rupees[] = {
-		// 					// Mapping coordinates for the vertices
-		// 	heart_left, heart_top,		// top left		(V2)
-		// 	heart_left, heart_bottom,		// bottom left	(V1)
-		// 	heart_right, heart_top,	// top right	(V4)
-		// 	heart_right, heart_bottom		// bottom right	(V3)
-		// };
-
-		// float ace_hearts[] = {
-		// 					// Mapping coordinates for the vertices
-		// 	ace_left, ace_top,		// top left		(V2)
-		// 	ace_left, ace_bottom,		// bottom left	(V1)
-		// 	ace_right, ace_top,	// top right	(V4)
-		// 	ace_right, ace_bottom		// bottom right	(V3)
-		// };
-		
-		float card2_tex[] = {
-						// Mapping coordinates for the vertices
-			176.0f, 395.0f,		// top left		(V2)
-			176.0f, 30.0f,		// bottom left	(V1)
-			330.0f, 395.0f,	// top right	(V4)
-			330.0f, 30.0f		// bottom right	(V3)
-		};
-
-
 		float felt_tex[] = {
 						// Mapping coordinates for the vertices
 			0.0f, 1.0f,		// top left		(V2)
@@ -114,19 +71,18 @@ public class GlRenderer implements Renderer {
 			1.0f, 0.0f		// bottom right	(V3)
 		};
 
-//		card2_tex = pixToTex(card2_tex);
-//		two_rupees = pixToTex(two_rupees);
-//		ace_hearts = pixToTex(ace_hearts);
+
 		felt = new Square(felt_verts, felt_tex);
 
-		float[] first_card = get_texture(0);
-		float[] sec_card = get_texture(15);
+		float[] first_card = get_texture(50);
+		float[] sec_card = get_texture(39);
 
 		card1 = new Square(card1_verts, first_card);
 		card2 = new Square(card2_verts, sec_card);
 	}
 
 
+	//gets correct texture coordinates given the number of the card
 	public float[] get_texture(int card){
 		float card_w = 154.6f;
 		float card_h = 369;
